@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remind_me.R
 import com.example.remind_me.data.model.Task
 import com.example.remind_me.databinding.ActivityMainBinding
+import com.example.remind_me.utils.MaskEditUtil
 import com.example.remind_me.utils.showSnackBarRed
 import com.example.remind_me.view_model.TaskViewModel
 import java.lang.Exception
@@ -28,9 +29,11 @@ class MainActivity : AppCompatActivity(), TaskClickInterface, TaskDeleteInterfac
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater).apply { setContentView(root) }
-        onClick()
 
+        binding = ActivityMainBinding.inflate(layoutInflater).apply { setContentView(root) }
+
+        onClick()
+        maskViews()
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(TaskViewModel::class.java)
         viewModel.allTasks.observe(this, androidx.lifecycle.Observer { list ->
             list?.let {
@@ -41,12 +44,18 @@ class MainActivity : AppCompatActivity(), TaskClickInterface, TaskDeleteInterfac
 
     }
 
+
     private fun onClick() {
         binding.createBtn.setOnClickListener {
             hideKeyboard(binding.createBtn)
             validate()
         }
     }
+
+    private fun maskViews(){
+        binding.editDate.addTextChangedListener(MaskEditUtil.mask(binding.editDate, "##/##/####"))
+    }
+
 
     private fun hideKeyboard(view: View){
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -113,7 +122,7 @@ class MainActivity : AppCompatActivity(), TaskClickInterface, TaskDeleteInterfac
 
     @SuppressLint("SimpleDateFormat")
     fun initList(list: MutableList<Task>) {
-        val sortedList = list.sortedByDescending { it ->
+        val sortedList = list.sortedBy { it ->
             SimpleDateFormat("dd/MM/yyyy").parse(it.taskDate)
         }
 
