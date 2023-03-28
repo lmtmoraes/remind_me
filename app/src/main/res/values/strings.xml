@@ -5,5 +5,11 @@
     <string name="nome">Nome</string>
     <string name="data">Data</string>
     <string name="nome_do_lembrete">Nome do lembrete</string>
+    <string name="preencha_os_campos">Os campos Nome e Data são obrigatório. </string>
+    <string name="digite_uma_data_válida">Digite uma data válida</string>
+    <string name="campo_nome_obrigatorio">O campo Nome é obrigatório</string>
+    <string name="campo_data_obrigatorio">O campo Data é obrigatório</string>
+    <string name="digite_uma_data_valida">Digite uma data válida</string>
+    <string name="digite_uma_data_futura">Digite uma data futura</string>
     <string name="criar">Criar</string>
 </resources>
