@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/drawable/rounded_button.xml" value="0.1415" />
+        <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/drawable/rounded_edit_text.xml" value="0.1415" />
         <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/font/roboto.xml" value="0.234375" />
         <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/font/roboto_bold.xml" value="0.234375" />
+        <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Lucas/Desktop/projetos/remind_me/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
       </map>
     </option>

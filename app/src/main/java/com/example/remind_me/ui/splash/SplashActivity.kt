@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater).apply { setContentView(root) }
-        
+
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finishAffinity()

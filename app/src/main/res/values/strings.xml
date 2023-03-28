@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Remind_me</string>
     <string name="remind_me">Remind Me</string>
+    <string name="criar_lembrete">Criar lembrete</string>
+    <string name="nome">Nome</string>
+    <string name="data">Data</string>
+    <string name="nome_do_lembrete">Nome do lembrete</string>
+    <string name="criar">Criar</string>
 </resources>

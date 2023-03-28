@@ -6,13 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/create_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:fontFamily="@font/roboto_bold"
+        android:textSize="30sp"
+        android:text="@string/criar_lembrete"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/create_txt"
+        app:layout_constraintStart_toStartOf="@id/create_txt"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:text="@string/nome"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_name"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/nome_do_lembrete"
+        android:paddingStart="10dp"
+        android:inputType="textNoSuggestions"
+        android:background="@drawable/rounded_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/name_txt"
+        app:layout_constraintStart_toStartOf="@id/name_txt"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/date_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_name"
+        app:layout_constraintStart_toStartOf="@id/create_txt"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:text="@string/data"
+        android:textColor="@color/black"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_date"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:inputType="date"
+        android:background="@drawable/rounded_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/date_txt"
+        app:layout_constraintStart_toStartOf="@id/date_txt"
+        android:paddingStart="10dp"
+        android:hint="dd/mm/yyyy"
+        tools:ignore="HardcodedText,RtlSymmetry" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_date"
+        app:layout_constraintStart_toStartOf="@id/edit_date"
+        app:layout_constraintEnd_toEndOf="@id/edit_date"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto"
+        android:text="@string/criar"
+        android:textAllCaps="false"
+        android:paddingHorizontal="40dp"
+        android:background="@drawable/rounded_button"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
