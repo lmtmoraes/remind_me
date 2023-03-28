@@ -1,36 +1,43 @@
 package com.example.remind_me.ui.main
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.hardware.input.InputManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.CalendarView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remind_me.R
+import com.example.remind_me.data.model.Task
 import com.example.remind_me.databinding.ActivityMainBinding
 import com.example.remind_me.utils.showSnackBarRed
+import com.example.remind_me.view_model.TaskViewModel
 import java.lang.Exception
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TaskClickInterface, TaskDeleteInterface {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: TaskViewModel
+    private var taskAdapter = TaskAdapter(this, this, this)
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).apply { setContentView(root) }
-
-
         onClick()
+
+        viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(TaskViewModel::class.java)
+        viewModel.allTasks.observe(this, androidx.lifecycle.Observer { list ->
+            list?.let {
+                initList(it)
+            }
+        })
+
 
     }
 
@@ -79,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         if(name.isNotEmpty() && date.isNotEmpty() && date.length == 10){
             if(validateDate(date)){
                 if(calendar.time.before(formattedData.parse(date))){
-                    Toast.makeText(applicationContext, "validação", Toast.LENGTH_LONG).show()
+                    viewModel.addTask(Task(date, name))
                 } else {
                     binding.root.showSnackBarRed(binding.root.context.getString(R.string.digite_uma_data_futura))
                 }
@@ -102,5 +109,27 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception){
             false
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun initList(list: MutableList<Task>) {
+        val sortedList = list.sortedByDescending { it ->
+            SimpleDateFormat("dd/MM/yyyy").parse(it.taskDate)
+        }
+
+        binding.rvTasks.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = taskAdapter
+            taskAdapter.updateList(sortedList)
+        }
+    }
+
+
+    override fun onDeleteIconClick(task: Task) {
+        viewModel.deleteTask(task)
+    }
+
+    override fun onTaskClick(task: Task) {
+        viewModel.addTask(task)
     }
 }

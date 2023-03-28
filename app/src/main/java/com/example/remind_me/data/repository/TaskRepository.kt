@@ -6,7 +6,7 @@ import com.example.remind_me.data.model.Task
 
 class TaskRepository(private val tasksDao: TaskDao) {
 
-    val allTasks: LiveData<List<Task>> = tasksDao.getAllTasks()
+    val allTasks: LiveData<MutableList<Task>> = tasksDao.getAllTasks()
 
     suspend fun insert(task: Task){
         tasksDao.insert(task)

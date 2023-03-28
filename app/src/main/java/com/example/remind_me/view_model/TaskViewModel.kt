@@ -11,8 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
-    private val allTasks: LiveData<List<Task>>
-    private val repository: TaskRepository
+    val allTasks: LiveData<MutableList<Task>>
+    val repository: TaskRepository
 
     init {
         val dao = TaskDatabase.getDatabase(application).getTasksDao()

@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.example.remind_me.R
 import com.example.remind_me.data.model.Task
@@ -20,18 +21,23 @@ class TaskAdapter(
     private lateinit var binding: ItemTaskBinding
     private val allTasks = ArrayList<Task>()
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val date = binding.dateTxt
-        val task = binding.taskTxt
-        val delete = binding.deleteImg
+    inner class ViewHolder(binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root){
+            val date = binding.dateTxt
+            val task = binding.taskTxt
+            val delete = binding.deleteImg
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
-        return ViewHolder(itemView)
+        binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.date.text = allTasks[position].taskDate
         holder.task.text = allTasks[position].taskDescription
         holder.delete.setOnClickListener {
@@ -40,6 +46,7 @@ class TaskAdapter(
         holder.itemView.setOnClickListener {
             taskClickInterface.onTaskClick(allTasks[position])
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -55,10 +62,10 @@ class TaskAdapter(
 
 }
 
-interface TaskDeleteInterface{
-    fun onDeleteIconClick(task: Task)
-}
+    interface TaskDeleteInterface{
+        fun onDeleteIconClick(task: Task)
+    }
 
-interface TaskClickInterface {
-    fun onTaskClick(task: Task)
-}
+    interface TaskClickInterface {
+        fun onTaskClick(task: Task)
+    }
